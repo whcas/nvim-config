@@ -9,6 +9,7 @@ vim.pack.add({
 	{ src = "https://github.com/saghen/blink.cmp" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.pairs" },
+	{ src = "https://github.com/folke/which-key.nvim" },
 })
 
 -- Nvim-Tree
@@ -33,7 +34,25 @@ require("fzf-lua").setup({})
 -- blink
 local cmp = require("blink.cmp")
 cmp.build():pwait()
-cmp.setup()
+cmp.setup({
+	keymap = {
+		preset = "enter"
+	}
+})
 
 -- mini-pairs
 require("mini.pairs").setup()
+
+-- which-key
+require("which-key").setup({
+	triggers = {
+		{ "<leader>", mode = { "n", "v" } },
+		{ "g", mode = { "n", "v" } },
+	},
+	spec = {
+		{ "<leader>f", group = "find" },
+		{ "<leader>c", group = "code" },
+		{ "<leader>h", group = "git" },
+		{ "<leader>u", group = "ui" },
+	},
+})

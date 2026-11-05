@@ -24,9 +24,6 @@ vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', { desc = "Toggle fil
 vim.keymap.set({'n', 'i'}, '<C-s>', '<cmd>write<CR>', { desc = "Save file" })
 
 -- Lsp shortcuts
-vim.keymap.set('i', '<C-Space>', function()
-	vim.lsp.completion.get()
-end, { desc = "Trigger LSP completion" })
 vim.keymap.set("n", "<leader>cf", function()
 	vim.lsp.buf.format()
 end, { desc = "Format code" })
