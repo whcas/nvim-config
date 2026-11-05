@@ -1,0 +1,6 @@
+vim.api.nvim_create_user_command("RustLayout", function()
+	vim.cmd("split")
+	vim.cmd("terminal bacon test")
+	vim.cmd("vsplit")
+	vim.cmd("terminal")
+end, {})
