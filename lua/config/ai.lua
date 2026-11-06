@@ -17,12 +17,9 @@ require("codecompanion").setup({
 -- CodeCompanion uses its own filetype for Markdown chat buffers.
 vim.treesitter.language.register("markdown", "codecompanion")
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "markdown", "codecompanion" },
+	pattern = { "codecompanion" },
 	callback = function()
 		pcall(vim.treesitter.start)
 	end,
 })
 
-require("render-markdown").setup({
-	file_types = { "markdown", "codecompanion" },
-})

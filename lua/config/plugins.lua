@@ -10,12 +10,12 @@ vim.pack.add({
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.pairs" },
 	{ src = "https://github.com/folke/which-key.nvim" },
+	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{
 		src = "https://github.com/olimorris/codecompanion.nvim",
 		version = vim.version.range("^19.0.0"),
 	},
-	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 })
 
 -- Nvim-Tree
@@ -35,6 +35,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- LaTeX math rendering needs extra parsers/tools; keep it off for now.
 require("render-markdown").setup({
 	latex = { enabled = false },
+	file_types = { "markdown", "codecompanion" },
 })
 
 -- Catppuccin
