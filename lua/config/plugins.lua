@@ -27,7 +27,10 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Markdown rendering (shared by work-safe and personal branches)
-require("render-markdown").setup({})
+-- LaTeX math rendering needs extra parsers/tools; keep it off for now.
+require("render-markdown").setup({
+	latex = { enabled = false },
+})
 
 -- Catppuccin
 vim.cmd.colorscheme("catppuccin-mocha")
