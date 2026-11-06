@@ -10,19 +10,26 @@ vim.pack.add({
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.pairs" },
 	{ src = "https://github.com/folke/which-key.nvim" },
+	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 })
 
 -- Nvim-Tree
 require("nvim-tree").setup()
 
 -- Nvim-Treesitter
-require("nvim-treesitter").install({ "rust" })
+require("nvim-treesitter").install({ "rust", "markdown", "markdown_inline" })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "rust" },
+	pattern = { "rust", "markdown" },
 	callback = function()
 		vim.treesitter.start()
 	end
+})
+
+-- Markdown rendering (shared by work-safe and personal branches)
+-- LaTeX math rendering needs extra parsers/tools; keep it off for now.
+require("render-markdown").setup({
+	latex = { enabled = false },
 })
 
 -- Catppuccin
