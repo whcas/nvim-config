@@ -4,10 +4,10 @@ Parallel experiment to [the CodeCompanion PR](https://github.com/whcas/nvim-conf
 This branch uses **Parrot** with **local Ollama only**. Do not merge both
 plugins without deciding which one to keep.
 
-This branch is based on the generic Markdown feature branch
-([PR #2](https://github.com/whcas/nvim-config/pull/2)). As soon as
-Markdown support lands on `main` and is synced to `ai`, the Parrot PR's
-diff will be Parrot-specific.
+Markdown support is already shared by `main` and `ai` via
+[PR #2](https://github.com/whcas/nvim-config/pull/2) and
+[PR #4](https://github.com/whcas/nvim-config/pull/4).
+This experiment only adds Parrot-specific configuration.
 
 ## Requirements
 

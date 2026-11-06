@@ -8,10 +8,6 @@
       "rev": "fd9a48ebbe6ec30d5dfcc5b42c243941ccdca1aa",
       "src": "https://github.com/saghen/blink.lib"
     },
-    "codecompanion.nvim": {
-      "rev": "6794c8bcbe9e8614588749cafb5de29d7fa57c3b",
-      "src": "https://github.com/olimorris/codecompanion.nvim"
-    },
     "fzf-lua": {
       "rev": "13bb178a299f7493dd64427a58e61904c4b58ecb",
       "src": "https://github.com/ibhagwan/fzf-lua"
@@ -43,10 +39,6 @@
     "parrot.nvim": {
       "rev": "95e7c5a2b79041bf2928582754ab6ba499d9263b",
       "src": "https://github.com/frankroeder/parrot.nvim"
-    },
-    "plenary.nvim": {
-      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
-      "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "render-markdown.nvim": {
       "rev": "8e8795368391036643b622875a6da6a51bcd33f4",
