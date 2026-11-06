@@ -11,6 +11,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-mini/mini.pairs" },
 	{ src = "https://github.com/folke/which-key.nvim" },
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+	{ src = "https://github.com/frankroeder/parrot.nvim" },
 })
 
 -- Nvim-Tree

@@ -28,6 +28,12 @@ vim.keymap.set("n", "<leader>cf", function()
 	vim.lsp.buf.format()
 end, { desc = "Format code" })
 
+-- Local Ollama chat (only on the Parrot experiment branch)
+vim.keymap.set("n", "<leader>ca", "<cmd>PrtChatToggle vsplit<CR>",
+	{ desc = "Toggle AI chat (Parrot)" })
+vim.keymap.set("x", "<leader>cs", "<cmd>PrtChatPaste vsplit<CR>",
+	{ desc = "Send selection to AI chat" })
+
 -- fzf shortcuts
 vim.keymap.set('n', '<leader>ff', '<cmd>FzfLua files<CR>',
 	{ desc = "Find files" }) 
