@@ -28,6 +28,10 @@ vim.keymap.set("n", "<leader>cf", function()
 	vim.lsp.buf.format()
 end, { desc = "Format code" })
 
+-- Local AI chat (available only on the ai branch)
+vim.keymap.set("n", "<leader>ca", "<cmd>CodeCompanionChat Toggle<CR>",
+	{ desc = "Toggle AI chat" })
+
 -- fzf shortcuts
 vim.keymap.set('n', '<leader>ff', '<cmd>FzfLua files<CR>',
 	{ desc = "Find files" }) 
