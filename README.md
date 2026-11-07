@@ -104,43 +104,98 @@ configuration/data/cache/state namespace for each launch.
 
 ## Personal `ai` configuration
 
-The `ai` branch builds on the shared Neovim configuration above and adds
-**CodeCompanion** connected to a **local-only Ollama** model. These features are
-not included on `main`, which remains suitable for environments where local
-AI integration should not be installed.
+The `ai` branch adds local AI assistance to the shared Neovim setup. `main`
+remains the general-purpose configuration, without AI integrations. Only
+AI-specific changes should be developed against `ai`; ordinary editor changes
+belong on `main` first and then flow into `ai` through a sync pull request.
 
-### Additional requirements
+See the [AI-specific decision records](docs/decisions/ai/README.md) for the
+reasons behind the integration and backend choices.
 
-- Ollama running locally.
-- The `qwen3.6:35b` model (or update `lua/config/ai.lua`).
+### Requirements and first launch
 
-With Homebrew:
+- Ollama running locally, with the model selected in `lua/config/ai.lua`.
+- The current model is `qwen3.6:35b`; change that string in `ai.lua` if
+  using a different locally installed model.
+
+For example, with Homebrew:
 
 ```sh
 brew services start ollama
 ollama pull qwen3.6:35b
+ollama list
 ```
 
-### Chat and editor integration
+Launch Neovim using this configuration and run `:checkhealth codecompanion`.
+CodeCompanion is declared in `lua/config/plugins.lua`, and all four configured
+interactions (`chat`, `inline`, `cmd`, `background`) use the Ollama adapter in
+`lua/config/ai.lua`. No hosted-provider API keys are configured.
 
-Check setup with `:checkhealth codecompanion`.
+### Chat workflow
 
-- `<leader>ca` toggles CodeCompanion chat (Space, c, a).
-- Submit a chat message with `<C-s>` in Insert mode or `<CR>` in Normal mode.
-- Use `#{buffer}` to include the current buffer explicitly.
-- Use `ga` within the chat to select another locally installed Ollama model.
+- `<leader>ca` (Space, c, a) toggles the CodeCompanion chat.
+- Write your question directly in the chat's Markdown buffer. Submit with
+  `<C-s>` in Insert mode or `<CR>` in Normal mode.
+- `#{buffer}` explicitly attaches the current source buffer as context.
+  Review attached context rather than assuming the model can see every file
+  in the project. The chat may also include editor metadata (such as current
+  working directory, system and Neovim version) in its system prompt.
+- Use `ga` in chat to choose an available Ollama model, where supported by
+  the installed CodeCompanion version.
 
-Responses are rendered as Markdown in a Neovim buffer. All configured
-CodeCompanion interactions use the local Ollama adapter; no cloud API key
-is required.
+The shared `render-markdown.nvim` setup renders both normal Markdown and
+CodeCompanion chat buffers, with an additional Treesitter filetype registration
+for `codecompanion`. This extension is `ai`-specific; generic Markdown support
+was developed on `main`.
 
-### Keeping configurations separate
+### Inline code editing
 
-Shared configuration changes are developed against `main` and brought into
-`ai` via a dedicated `main` → `ai` pull request. CodeCompanion-specific
-features remain on `ai`; they must not be merged into `main`.
+To edit only a function or range of code:
 
-To use an isolated checkout of another branch without switching your default
-configuration, see the `NVIM_APPNAME` / Git worktree approach above or the
-[branch launcher](scripts/README.md). If the launcher is installed and `ai`
-is your default branch, `nv main` opens an isolated instance of `main`.
+1. Visual-select the intended source lines.
+2. Press `:`; Neovim supplies the Visual range `:'<,'>`.
+3. Run `CodeCompanion` on that range, for example:
+
+   ```vim
+   :'<,'>CodeCompanion
+   ```
+
+4. Enter the edit instruction in CodeCompanion's prompt input. Review the
+   proposed inline replacement before accepting or rejecting it.
+
+**There is not yet a dedicated inline-edit keybinding in this repository.**
+Use the built-in diff help/action hints to discover the current accept/reject
+bindings; do not assume a keymap from a different plugin version.
+Adding a shortcut and improving prompt composition are tracked separately
+in [#5](https://github.com/whcas/nvim-config/issues/5) and
+[#6](https://github.com/whcas/nvim-config/issues/6).
+
+### Current limitations and follow-ups
+
+Both chat and inline editing were exercised against a local Rust function
+during the comparison with Parrot. The generated corrections passed the
+corresponding Rust tests, but output quality and context must still be
+reviewed before applying changes to real projects.
+
+- [#7](https://github.com/whcas/nvim-config/issues/7): Show clear progress
+  feedback while requests are processing.
+- [#8](https://github.com/whcas/nvim-config/issues/8): Make inline diff
+  accept/reject actions more discoverable.
+- [#9](https://github.com/whcas/nvim-config/issues/9): Investigate excessive
+  reasoning output and its effect on latency.
+
+These usability changes are follow-up work, not prerequisites to using
+CodeCompanion. Local inference can be slow depending on the model and hardware.
+
+### Branch isolation and maintenance
+
+The [version-controlled `nv` launcher](scripts/README.md) uses Git worktrees
+and `NVIM_APPNAME` to keep experimental Neovim configurations and their
+installed plugins separate. With `ai` as the default branch, `nv` launches
+the ordinary AI configuration and `nv main` launches the general-purpose
+configuration in its own worktree (assuming a local `main` branch exists).
+
+AI-specific plugins, documentation and decisions are **not** merged back to
+`main`. Bring general editor changes from `main` into `ai` using a dedicated
+merge/sync PR, and retain AI-only sections when reconciling shared README
+changes.
