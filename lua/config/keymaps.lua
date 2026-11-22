@@ -28,6 +28,10 @@ vim.keymap.set("n", "<leader>cf", function()
 	vim.lsp.buf.format()
 end, { desc = "Format code" })
 
+-- Git UI experiment
+vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<CR>", { desc = "Open Git status (Neogit)" })
+vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", { desc = "Open Git diff (Diffview)" })
+
 -- fzf shortcuts
 vim.keymap.set('n', '<leader>ff', '<cmd>FzfLua files<CR>',
 	{ desc = "Find files" }) 
