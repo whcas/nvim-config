@@ -28,6 +28,9 @@ vim.keymap.set("n", "<leader>cf", function()
 	vim.lsp.buf.format()
 end, { desc = "Format code" })
 
+-- Git UI experiment
+vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<CR>", { desc = "Open Git UI (Lazygit)" })
+
 -- fzf shortcuts
 vim.keymap.set('n', '<leader>ff', '<cmd>FzfLua files<CR>',
 	{ desc = "Find files" }) 
