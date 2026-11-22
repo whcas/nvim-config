@@ -2,7 +2,7 @@
 # Create a disposable Git repository for comparing interactive Git UIs.
 set -eu
 
-root="$(mktemp -d "${TMPDIR:-/tmp}nvim-git-ui.XXXXXX")"
+root="$(mktemp -d "${TMPDIR:-/tmp}/nvim-git-ui.XXXXXX")"
 work="$root/work"
 git init --bare "$root/remote.git" >/dev/null
 git init -b main "$work" >/dev/null
