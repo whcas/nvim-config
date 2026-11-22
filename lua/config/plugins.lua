@@ -11,6 +11,8 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-mini/mini.pairs" },
 	{ src = "https://github.com/folke/which-key.nvim" },
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+	{ src = "https://github.com/NeogitOrg/neogit" },
+	{ src = "https://github.com/sindrets/diffview.nvim" },
 })
 
 -- Nvim-Tree
@@ -63,3 +65,7 @@ require("which-key").setup({
 		{ "<leader>u", group = "ui" },
 	},
 })
+
+-- Git UI experiment (Neogit + Diffview)
+require("diffview").setup({ use_icons = false })
+require("neogit").setup({ integrations = { diffview = true } })
